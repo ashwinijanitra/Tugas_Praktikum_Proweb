@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Suit Sederhana</title>
+    <style>
+        body {
+            background: url('snoopy.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            padding-top: 50px;
+        }
+        .container {
+            background: rgba(28, 86, 125, 0.8);
+            display: inline-block;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button, select {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Game Suit</h2>
+        
+        <label>Pilih Jenis Suit:</label><br>
+        <select id="pilihanJenis" onchange="buatTombol()">
+            <option value="1">Batu, Gunting, Kertas</option>
+            <option value="2">Gajah, Orang, Semut</option>
+            <option value="3">Jempol, Telunjuk, Kelingking</option>
+        </select>
+        
+        <br><br>
+        <div id="areaTombol"></div>
+        <br>
+        <h3 id="hasil">Pilih salah satu di atas!</h3>
+    </div>
+
+    <script>
+        function suitBatuGuntingKertas(user) {
+            const pilihan = ['Batu', 'Gunting', 'Kertas'];
+            const comp = pilihan[Math.floor(Math.random() * 3)];
+            
+            if (user === comp) return `Seri! Komputer memilih ${comp}`;
+            if ((user === 'Batu' && comp === 'Gunting') || 
+                (user === 'Gunting' && comp === 'Kertas') || 
+                (user === 'Kertas' && comp === 'Batu')) {
+                return `Kamu Menang! Komputer memilih ${comp}`;
+            }
+            return `Kamu Kalah! Komputer memilih ${comp}`;
+        }
+
+        function suitGajahOrangSemut(user) {
+            const pilihan = ['Gajah', 'Orang', 'Semut'];
+            const comp = pilihan[Math.floor(Math.random() * 3)];
+            
+            if (user === comp) return `Seri! Komputer memilih ${comp}`;
+            if ((user === 'Gajah' && comp === 'Orang') || 
+                (user === 'Orang' && comp === 'Semut') || 
+                (user === 'Semut' && comp === 'Gajah')) {
+                return `Kamu Menang! Komputer memilih ${comp}`;
+            }
+            return `Kamu Kalah! Komputer memilih ${comp}`;
+        }
+
+        function suitJari(user) {
+            const pilihan = ['Jempol', 'Telunjuk', 'Kelingking'];
+            const comp = pilihan[Math.floor(Math.random() * 3)];
+            
+            if (user === comp) return `Seri! Komputer memilih ${comp}`;
+            if ((user === 'Jempol' && comp === 'Telunjuk') || 
+                (user === 'Telunjuk' && comp === 'Kelingking') || 
+                (user === 'Kelingking' && comp === 'Jempol')) {
+                return `Kamu Menang! Komputer memilih ${comp}`;
+            }
+            return `Kamu Kalah! Komputer memilih ${comp}`;
+        }
+
+        function main(pilihanUser) {
+            const jenis = document.getElementById('pilihanJenis').value;
+            let hasilAkhir = '';
+
+            if (jenis === '1') hasilAkhir = suitBatuGuntingKertas(pilihanUser);
+            else if (jenis === '2') hasilAkhir = suitGajahOrangSemut(pilihanUser);
+            else if (jenis === '3') hasilAkhir = suitJari(pilihanUser);
+
+            document.getElementById('hasil').innerText = hasilAkhir;
+        }
+
+        function buatTombol() {
+            const jenis = document.getElementById('pilihanJenis').value;
+            const area = document.getElementById('areaTombol');
+            area.innerHTML = '';
+
+            let data = [];
+            if (jenis === '1') data = ['Batu', 'Gunting', 'Kertas'];
+            else if (jenis === '2') data = ['Gajah', 'Orang', 'Semut'];
+            else if (jenis === '3') data = ['Jempol', 'Telunjuk', 'Kelingking'];
+
+            data.forEach(item => {
+                let btn = document.createElement('button');
+                btn.innerText = item;
+                btn.onclick = () => main(item);
+                area.appendChild(btn);
+            });
+
+            document.getElementById('hasil').innerText = 'Pilih salah satu di atas!';
+        }
+
+        buatTombol();
+    </script>
+</body>
+</html>
